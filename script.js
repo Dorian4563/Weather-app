@@ -7,14 +7,14 @@ const errorDiv = document.getElementById('error')
 const recentList = document.getElementById('recent-list')
 const themeToggle = document.getElementById('theme-toggle')
 
-themeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark")
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark')
   themeToggle.textContent = document.body.classList.contains('dark')
     ? "☀️ Light Mode"
     : "🌙 Dark Mode"
 });
 
-let recentSearches = JSON.parse(localStorage.getItem('recentSearches')) || []
+const recentSearches = JSON.parse(localStorage.getItem('recentSearches')) || []
 updateRecentSearches()
 
 let cachedWeather = localStorage.getItem('cachedWeather')
@@ -22,9 +22,9 @@ if (cachedWeather) displayWeather(JSON.parse(cachedWeather))
 
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(async (position) => {
-    const { latitude, longitude } = position.coords;
+    const { latitude, longitude } = position.coords
     await fetchWeather(`lat=${latitude}&lon=${longitude}`, 'auto')
-  });
+  })
 }
 
 searchBtn.addEventListener('click', async () => {
@@ -33,20 +33,20 @@ searchBtn.addEventListener('click', async () => {
     await fetchWeather(`q=${query}`)
     addToRecent(query)
   }
-});
+})
 
-async function fetchWeather(query, isAuto = false) {
+async function fetchWeather (query, isAuto = false) {
   try {
-    errorDiv.style.display = "none"
+    errorDiv.style.display = 'none'
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?${query}&appid=${apiKey}&units=metric`,
+      `https://api.openweathermap.org/data/2.5/weather?${query}&appid=${apiKey}&units=metric`
     );
     if (!response.ok) throw new Error('Location not found')
     const current = await response.json();
 
     const forecastResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?${query}&appid=${apiKey}&units=metric`,
-    );
+`https://api.openweathermap.org/data/2.5/forecast?${query}&appid=${apiKey}&units=metric`
+    )
     if (!forecastResponse.ok) throw new Error('Forecast unavailable')
     const forecast = await forecastResponse.json()
 
@@ -58,13 +58,13 @@ async function fetchWeather(query, isAuto = false) {
       error.message === 'Failed to fetch'
         ? 'No internet connection'
         : error.message,
-    );
+    )
   }
 }
 
-function displayWeather(data) {
+function displayWeather (data) {
   const { current, forecast, isAuto } = data
-  weatherDisplay.style.display = 'block';
+  weatherDisplay.style.display = 'block'
 
   document.getElementById('location').textContent = isAuto
     ? 'Your Location'
@@ -81,14 +81,14 @@ function displayWeather(data) {
     `UTC${current.timezone / 3600 > 0 ? '+' : ''}${current.timezone / 3600}`
 
   const forecastGrid = document.getElementById('forecast-grid')
-  forecastGrid.innerHTML = ""
-  const daily = {};
+  forecastGrid.innerHTML = ''
+  const daily = {}
   forecast.list.forEach((item) => {
     const date = new Date(item.dt * 1000).toDateString()
     if (!daily[date]) daily[date] = { temps: [] }
     daily[date].temps.push(item.main.temp)
     if (!daily[date].icon) daily[date].icon = item.weather[0].icon
-  });
+  })
   Object.keys(daily)
     .slice(0, 5)
     .forEach((date) => {
@@ -101,17 +101,17 @@ function displayWeather(data) {
                         <img src='https://openweathermap.org/img/wn/${daily[date].icon}.png' alt='Icon'>
                         <div>${Math.round(high)}°/${Math.round(low)}°</div>
                     </div>
-                `;
-    });
+                `
+    })
 }
 
-function showError(message) {
+function showError (message) {
   errorDiv.textContent = message
   errorDiv.style.display = 'block'
   weatherDisplay.style.display = 'none'
 }
 
-function addToRecent(query) {
+function addToRecent (query) {
   if (!recentSearches.includes(query)) {
     recentSearches.unshift(query)
     if (recentSearches.length > 5) recentSearches.pop()
@@ -120,15 +120,15 @@ function addToRecent(query) {
   }
 }
 
-function updateRecentSearches() {
-  recentList.innerHTML = ""
-  recentSearches.forEach((search) => {
+function updateRecentSearches () {
+  recentList.innerHTML = ''
+  recentSearches.forEach((search) => { 
     const li = document.createElement('li')
-    li.textContent = search;
+    li.textContent = search
     li.addEventListener('click', () => {
       searchInput.value = search
       searchBtn.click()
-    });
+    })
     recentList.appendChild(li)
   })
 }
