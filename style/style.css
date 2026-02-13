@@ -16,9 +16,9 @@ body {
   min-height: 100vh;
 }
 
-.stats {
+/* .stats {
   margin-top: 20px;
-}
+} */
 
 .stats-grid {
   display: grid;
