@@ -97,7 +97,7 @@ function displayWeather(data) {
       const low = Math.min(...temps)
       forecastGrid.innerHTML += `
                     <div class='forecast-day'>
-                        <div>${date.split('' '')[0]}</div>
+                        <div>${date.split('')[0]}</div>
                         <img src='https://openweathermap.org/img/wn/${daily[date].icon}.png' alt='Icon'>
                         <div>${Math.round(high)}°/${Math.round(low)}°</div>
                     </div>
