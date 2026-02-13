@@ -1,10 +1,3 @@
-// .eslintrc.js
-module.exports = {
-  // ...
-  ignorePatterns: ["!.storybook", "dist", "node_modules"],
-  // ...
-};
-
 const apiKey = "b9b21bb9f1c3c5918eaa68741e94a57f";
 const searchInput = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-btn");
@@ -26,6 +19,13 @@ updateRecentSearches();
 
 let cachedWeather = localStorage.getItem("cachedWeather");
 if (cachedWeather) displayWeather(JSON.parse(cachedWeather));
+
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(async (position) => {
+    const { latitude, longitude } = position.coords;
+    await fetchWeather(`lat=${latitude}&lon=${longitude}`, "auto");
+  });
+}
 
 searchBtn.addEventListener("click", async () => {
   const query = searchInput.value.trim();
