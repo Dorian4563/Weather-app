@@ -35,17 +35,6 @@ searchBtn.addEventListener("click", async () => {
   }
 });
 
-locationBtn.addEventListener("click", () => {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      const { latitude, longitude } = position.coords;
-      await fetchWeather(`lat=${latitude}&lon=${longitude}`, "auto");
-    });
-  } else {
-    showError("Geolocation not supported");
-  }
-});
-
 async function fetchWeather(query, isAuto = false) {
   try {
     errorDiv.style.display = "none";
