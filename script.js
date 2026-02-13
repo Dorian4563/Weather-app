@@ -1,3 +1,10 @@
+// .eslintrc.js
+module.exports = {
+  // ...
+  ignorePatterns: ["!.storybook", "dist", "node_modules"],
+  // ...
+};
+
 const apiKey = "b9b21bb9f1c3c5918eaa68741e94a57f";
 const searchInput = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-btn");
