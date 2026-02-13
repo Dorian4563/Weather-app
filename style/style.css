@@ -147,12 +147,12 @@ body.dark .recent-searches li {
   background: white;
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 10%);
+  box-shadow: 0 4px 8px #0000001a;
   transition: box-shadow 0.3s;
 }
 
 .card:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 15%);
+  box-shadow: 0 6px 12px oklch(0% 0 0 15);
 }
 
 body.dark .card {
