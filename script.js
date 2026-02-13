@@ -10,9 +10,9 @@ const themeToggle = document.getElementById('theme-toggle')
 themeToggle.addEventListener('click', () => {
   document.body.classList.toggle('dark')
   themeToggle.textContent = document.body.classList.contains('dark')
-    ? "☀️ Light Mode"
-    : "🌙 Dark Mode"
-});
+    ? '☀️ Light Mode'
+    : '🌙 Dark Mode'
+})
 
 const recentSearches = JSON.parse(localStorage.getItem('recentSearches')) || []
 updateRecentSearches()
@@ -40,9 +40,9 @@ async function fetchWeather (query, isAuto = false) {
     errorDiv.style.display = 'none'
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?${query}&appid=${apiKey}&units=metric`
-    );
+    )
     if (!response.ok) throw new Error('Location not found')
-    const current = await response.json();
+    const current = await response.json()
 
     const forecastResponse = await fetch(
 `https://api.openweathermap.org/data/2.5/forecast?${query}&appid=${apiKey}&units=metric`
@@ -57,7 +57,7 @@ async function fetchWeather (query, isAuto = false) {
     showError(
       error.message === 'Failed to fetch'
         ? 'No internet connection'
-        : error.message,
+        : error.message
     )
   }
 }
@@ -122,7 +122,7 @@ function addToRecent (query) {
 
 function updateRecentSearches () {
   recentList.innerHTML = ''
-  recentSearches.forEach((search) => { 
+  recentSearches.forEach((search) => {
     const li = document.createElement('li')
     li.textContent = search
     li.addEventListener('click', () => {
