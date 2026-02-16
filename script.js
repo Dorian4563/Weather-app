@@ -17,7 +17,7 @@ themeToggle.addEventListener('click', () => {
 const recentSearches = JSON.parse(localStorage.getItem('recentSearches')) || []
 updateRecentSearches()
 
-let cachedWeather = localStorage.getItem('cachedWeather')
+const cachedWeather = localStorage.getItem('cachedWeather')
 if (cachedWeather) displayWeather(JSON.parse(cachedWeather))
 
 if (navigator.geolocation) {
